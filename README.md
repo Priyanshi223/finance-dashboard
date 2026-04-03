@@ -5,7 +5,7 @@ Monorepo with a **Spring Boot** REST API (`backend/`) and a **React (Vite + Type
 ## Assumptions
 
 - **Roles**: `VIEWER` (dashboard summaries + recent activity **without notes**), `ANALYST` (read/search financial records + all dashboard APIs), `ADMIN` (full record CRUD + user management).
-- **Persistence**: SQLite file at `backend/data/finance.db` (created on first run).
+- **Persistence**: MySQL database `finance_db` running on `localhost:3306` (created on first run).
 - **Auth**: JWT in `Authorization: Bearer <token>`; demo users seeded on first startup (see below).
 - **Production**: Change `app.jwt.secret` in `backend/src/main/resources/application.properties` and configure `VITE_API_URL` for the frontend build if the API is on another origin.
 
@@ -66,7 +66,7 @@ Errors return JSON with `status`, `message`, and optional `details` (validation)
 ## Project layout
 
 ```
-backend/     — Spring Boot, JPA, Spring Security, JWT, SQLite
+backend/     — Spring Boot, JPA, Spring Security, JWT, MYSQL
 frontend/    — React, React Router, Tailwind CSS, Recharts
 ```
 
@@ -74,3 +74,11 @@ frontend/    — React, React Router, Tailwind CSS, Recharts
 
 - Aggregations for the dashboard load all records in memory; fine for demos and moderate data. For large datasets, move summaries to SQL/scheduled jobs/materialized views.
 - JWT secret is in `application.properties` for simplicity; use env vars or a secret manager in production.
+
+  ## Assumption Made
+- VIEWER role can see dashboard and recent activity but cannot see record notes
+- ANALYST can search and filter records but cannot modify them
+- ADMIN is the only role that can create, update, or delete records and manage users
+- Demo users are seeded automatically on first startup
+- JWT tokens are stateless with no refresh token mechanism
+- Dashboard aggregations run in memory (suitable for demo scale data)
