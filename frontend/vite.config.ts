@@ -1,4 +1,4 @@
-// AI-Generated Code - 2026-04-02 - Claude
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -7,6 +7,7 @@ const apiProxy = {
     target: 'http://localhost:8080',
     changeOrigin: true,
   },
+  
 } as const
 
 export default defineConfig({
