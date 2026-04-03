@@ -1,4 +1,4 @@
-// AI-Generated Code - 2026-04-02 - Claude
+
 package com.financedashboard;
 
 import org.springframework.boot.SpringApplication;
